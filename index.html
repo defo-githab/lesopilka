@@ -32,13 +32,24 @@
       color: var(--ink-primary);
       line-height: 1.55;
       background-color: var(--wood-base);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Фиксированный фон, который корректно работает и на ПК, и на iPhone/Android */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-color: var(--wood-base);
       background-image:
         linear-gradient(rgba(32, 20, 10, 0.22), rgba(32, 20, 10, 0.28)),
         url('bg.jpg');
       background-size: cover;
       background-position: center center;
-      background-attachment: fixed;
-      overflow-x: hidden;
+      background-repeat: no-repeat;
+      pointer-events: none;
     }
 
     .container {
@@ -51,7 +62,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(251, 247, 240, 0.93);
+      background: rgba(251, 247, 240, 0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-wood);
@@ -62,15 +73,16 @@
       align-items: center;
       justify-content: space-between;
       height: 68px;
-      gap: 16px;
+      gap: 12px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
       color: var(--ink-primary);
+      min-width: 0;
     }
 
     .brand-mark {
@@ -87,8 +99,24 @@
       flex-shrink: 0;
     }
 
-    .brand-info strong { display: block; font-size: 15px; font-weight: 700; line-height: 1.2; }
-    .brand-info span { display: block; font-size: 12px; color: var(--ink-secondary); }
+    .brand-info { min-width: 0; }
+    .brand-info strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .brand-info span {
+      display: block;
+      font-size: 12px;
+      color: var(--ink-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     .nav-links { display: flex; gap: 26px; }
     .nav-links a {
@@ -112,6 +140,7 @@
       font-weight: 700;
       transition: background 0.2s;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .nav-cta:hover { background: var(--bark-deep); }
 
@@ -143,10 +172,10 @@
       border-radius: 99px;
       margin-bottom: 18px;
     }
-    .pill-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--heartwood-accent); }
+    .pill-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--heartwood-accent); flex-shrink: 0; }
 
     .hero h1 {
-      font-size: clamp(30px, 3.8vw, 46px);
+      font-size: clamp(26px, 3.8vw, 46px);
       font-weight: 800;
       line-height: 1.12;
       letter-spacing: -0.025em;
@@ -200,12 +229,12 @@
     .quick-facts {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 14px;
       padding-top: 22px;
       border-top: 1px solid var(--border-wood);
     }
     .fact strong { display: block; font-size: 15px; font-weight: 700; }
-    .fact span { font-size: 12px; color: var(--ink-secondary); }
+    .fact span { display: block; font-size: 12px; color: var(--ink-secondary); line-height: 1.3; margin-top: 2px; }
 
     .hero-aside {
       background: var(--card-inner);
@@ -219,7 +248,7 @@
       gap: 8px;
       background: #FFFDF9;
       border: 1px solid var(--border-wood);
-      padding: 6px 12px;
+      padding: 7px 13px;
       border-radius: 8px;
       font-size: 12px;
       font-weight: 600;
@@ -227,7 +256,6 @@
       color: var(--ink-primary);
       text-decoration: none;
     }
-    .star { color: #D97706; }
     .hero-aside h3 { font-size: 17px; font-weight: 700; margin-bottom: 14px; }
 
     .check-list { list-style: none; display: grid; gap: 14px; }
@@ -265,7 +293,7 @@
       box-shadow: var(--shadow-wood);
     }
 
-    .sec-header { margin-bottom: 28px; }
+    .sec-header { margin-bottom: 24px; }
     .sec-tag {
       font-size: 12px;
       font-weight: 700;
@@ -276,12 +304,41 @@
       display: block;
     }
     .sec-header h2 {
-      font-size: clamp(24px, 3vw, 32px);
+      font-size: clamp(22px, 3vw, 32px);
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 6px;
     }
     .sec-header p { color: var(--ink-secondary); font-size: 15px; max-width: 680px; }
+
+    /* Мобильные вкладки для быстрого переключения категорий */
+    .mobile-tabs {
+      display: none;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+    .mobile-tabs::-webkit-scrollbar { display: none; }
+    .m-tab {
+      border: 1px solid var(--border-wood);
+      background: var(--card-inner);
+      color: var(--ink-primary);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 99px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .m-tab.active {
+      background: var(--bark-dark);
+      color: #FBF7F0;
+      border-color: var(--bark-dark);
+    }
 
     /* Единая 3-колоночная сетка для всех стандартных сечений */
     .sizes-grid {
@@ -395,7 +452,7 @@
       padding: 40px;
       box-shadow: var(--shadow-wood);
     }
-    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
     .benefit h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: #F5DEC0; }
     .benefit p { font-size: 14px; color: rgba(251, 247, 240, 0.8); }
 
@@ -427,11 +484,12 @@
       left: 0;
       right: 0;
       bottom: 0;
-      padding: 28px 16px 12px;
+      padding: 28px 14px 12px;
       background: linear-gradient(180deg, transparent 0%, rgba(28, 17, 8, 0.85) 100%);
       color: #FBF7F0;
       font-size: 13px;
       font-weight: 600;
+      line-height: 1.3;
     }
 
     /* Лайтбокс */
@@ -477,6 +535,7 @@
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
+      text-align: center;
       transition: all 0.2s;
     }
     .msg-btn:hover { background: var(--bark-dark); color: #FBF7F0; border-color: var(--bark-dark); }
@@ -523,7 +582,7 @@
 
     footer {
       margin-top: 24px;
-      background: rgba(251, 247, 240, 0.93);
+      background: rgba(251, 247, 240, 0.94);
       border-top: 1px solid var(--border-wood);
       padding: 28px 0;
       font-size: 13px;
@@ -531,15 +590,142 @@
     }
     .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
-    @media (max-width: 980px) {
-      .sizes-grid { grid-template-columns: 1fr; }
+    /* Адаптация под планшеты и телефоны (без сплошного столба) */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-box, .contacts-wrap { grid-template-columns: 1fr; gap: 22px; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     }
 
-    @media (max-width: 860px) {
-      .nav-links { display: none; }
-      .hero-box, .contacts-wrap { grid-template-columns: 1fr; padding: 24px; }
-      .quick-facts, .extra-grid, .photos-grid { grid-template-columns: 1fr; }
-      .section-panel, .trust-block { padding: 26px 20px; }
+    @media (max-width: 720px) {
+      .container { padding: 0 12px; }
+      .nav { height: 60px; }
+      .brand-mark { width: 34px; height: 34px; font-size: 15px; }
+      .brand-info strong { font-size: 14px; }
+      .brand-info span { font-size: 11px; }
+      .nav-cta { padding: 8px 12px; font-size: 13px; }
+
+      .hero { padding: 18px 0 16px; }
+      section { padding: 14px 0; }
+
+      .hero-box, .section-panel {
+        border-radius: 20px;
+        padding: 20px 16px;
+      }
+
+      .pill-anchor {
+        font-size: 11.5px;
+        padding: 5px 11px;
+        margin-bottom: 12px;
+      }
+
+      .hero-desc { font-size: 14.5px; margin-bottom: 18px; }
+
+      /* Кнопки первого экрана в 2 колонки рядом */
+      .hero-btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .btn-primary, .btn-secondary {
+        padding: 12px 10px;
+        font-size: 13px;
+        text-align: center;
+      }
+
+      /* 3 факта остаются в 1 аккуратную строку */
+      .quick-facts {
+        gap: 8px;
+        padding-top: 14px;
+      }
+      .fact {
+        background: rgba(243, 236, 224, 0.65);
+        padding: 10px 8px;
+        border-radius: 12px;
+        text-align: center;
+      }
+      .fact strong { font-size: 13px; }
+      .fact span { font-size: 11px; }
+
+      .hero-aside {
+        padding: 18px 16px;
+        border-radius: 16px;
+      }
+
+      /* Вкладки размеров на телефоне */
+      .mobile-tabs { display: flex; }
+      .sizes-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .size-card {
+        padding: 18px 16px;
+        border-radius: 16px;
+      }
+      .size-card.hidden-mobile { display: none; }
+      .size-card h3 { font-size: 17px; margin-bottom: 12px; }
+      .size-list { gap: 8px; }
+      .size-list li { padding-bottom: 8px; }
+
+      /* Необрезная доска и опилки в 2 колонки рядом */
+      .extra-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .extra-card {
+        padding: 14px 12px;
+        border-radius: 14px;
+      }
+      .extra-card .tag-chip { font-size: 9.5px; padding: 3px 7px; margin-bottom: 8px; }
+      .extra-card h4 { font-size: 14px; margin-bottom: 4px; }
+      .extra-card p { font-size: 12px; line-height: 1.4; }
+
+      /* Условия работы в сетке 2x2 */
+      .trust-block {
+        border-radius: 20px;
+        padding: 20px 16px;
+      }
+      .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .benefit {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 12px;
+        border-radius: 14px;
+      }
+      .benefit h3 { font-size: 14px; margin-bottom: 4px; }
+      .benefit p { font-size: 12px; line-height: 1.4; }
+
+      /* Галерея фото в сетке 2x3 вместо 6 огромных фото столбом */
+      .photos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .photo-card {
+        height: 145px;
+        border-radius: 14px;
+      }
+      .photo-caption {
+        font-size: 11px;
+        padding: 20px 10px 8px;
+      }
+
+      /* Кнопки мессенджеров сеткой 2x2 */
+      .msg-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .msg-btn {
+        padding: 11px 10px;
+        font-size: 13px;
+      }
+
+      .map-box { min-height: 250px; }
+      .map-box iframe { min-height: 215px; }
     }
   </style>
 </head>
@@ -551,7 +737,7 @@
         <div class="brand-mark">Л</div>
         <div class="brand-info">
           <strong>Лесопилка - Тамбовская обл.</strong>
-          <span>д. Красниково (рядом с Мичуринском)</span>
+          <span>д. Красниково (Мичуринск)</span>
         </div>
       </a>
 
@@ -581,22 +767,22 @@
           </p>
 
           <div class="hero-btns">
-            <a href="#catalog" class="btn-primary">Смотреть стандартные размеры</a>
-            <a href="#contacts" class="btn-secondary">Узнать цены и наличие</a>
+            <a href="#catalog" class="btn-primary">Стандартные размеры</a>
+            <a href="#contacts" class="btn-secondary">Узнать цены</a>
           </div>
 
           <div class="quick-facts">
             <div class="fact">
               <strong>От 5 штук</strong>
-              <span>Продаем в розницу и оптом</span>
+              <span>Розница и опт</span>
             </div>
             <div class="fact">
-              <strong>Длина 6 метров</strong>
-              <span>Стандартные сечения в наличии</span>
+              <strong>Длина 6 м</strong>
+              <span>Все сечения</span>
             </div>
             <div class="fact">
               <strong>Своя Газель</strong>
-              <span>Доставка по километражу</span>
+              <span>По километражу</span>
             </div>
           </div>
         </div>
@@ -630,9 +816,16 @@
           <p>Актуальную стоимость за куб и за штуку уточняйте по телефону или в мессенджерах - подскажем остатки на складе под ваш объем</p>
         </div>
 
-        <!-- Все 3 категории размеров на одном уровне -->
+        <!-- Быстрые вкладки для телефона -->
+        <div class="mobile-tabs" id="sizeTabs">
+          <button class="m-tab active" onclick="filterSizes('all', this)">Все размеры</button>
+          <button class="m-tab" onclick="filterSizes('thin', this)">Тонкая доска</button>
+          <button class="m-tab" onclick="filterSizes('thick', this)">Толстая доска</button>
+          <button class="m-tab" onclick="filterSizes('timber', this)">Брус и брусок</button>
+        </div>
+
         <div class="sizes-grid">
-          <div class="size-card">
+          <div class="size-card" data-cat="thin">
             <span class="tag-chip">Длина 6 м</span>
             <h3>Доска обрезная тонкая (20-25 мм)</h3>
             <ul class="size-list">
@@ -660,7 +853,7 @@
             </ul>
           </div>
 
-          <div class="size-card">
+          <div class="size-card" data-cat="thick">
             <span class="tag-chip">Длина 6 м</span>
             <h3>Доска обрезная толстая (40-50 мм)</h3>
             <ul class="size-list">
@@ -702,7 +895,7 @@
             </ul>
           </div>
 
-          <div class="size-card">
+          <div class="size-card" data-cat="timber">
             <span class="tag-chip">Длина 6 м</span>
             <h3>Брус и брусок строительный</h3>
             <ul class="size-list">
@@ -745,18 +938,17 @@
           </div>
         </div>
 
-        <!-- Дополнительные материалы -->
         <div class="extra-grid">
           <div class="extra-card">
-            <span class="tag-chip">Для черновых работ</span>
+            <span class="tag-chip">Черновые работы</span>
             <h4>Доска необрезная и горбыль</h4>
-            <p>Экономичный сосновый материал для возведения заборов, временных ограждений, лесов, хозпостроек или на дрова.</p>
+            <p>Экономичный сосновый материал для заборов, временных ограждений, лесов, хозпостроек или на дрова.</p>
           </div>
 
           <div class="extra-card">
-            <span class="tag-chip">В наличии на базе</span>
+            <span class="tag-chip">В наличии</span>
             <h4>Опилки сосновые</h4>
-            <p>Чистые свежие опилки в мешках и навалом для утепления, садовых участков, мульчирования и фермерских хозяйств.</p>
+            <p>Чистые свежие опилки в мешках и навалом для утепления, садовых участков, мульчирования и ферм.</p>
           </div>
         </div>
       </div>
@@ -769,19 +961,19 @@
         <div class="benefits-grid">
           <div class="benefit">
             <h3>Своя Газель по области</h3>
-            <p>Возим по всей Тамбовской области. Вы платите только за реальный километраж от д. Красниково до вашего участка.</p>
+            <p>Возим по Тамбовской области. Вы платите только за километраж от д. Красниково до участка.</p>
           </div>
           <div class="benefit">
-            <h3>Манипулятор на территории</h3>
-            <p>Загрузим пачку досок в ваш кузов или прицеп механизированно - быстро и без повреждений.</p>
+            <h3>Манипулятор на базе</h3>
+            <p>Загрузим пачку досок в ваш кузов или прицеп механизированно - быстро и аккуратно.</p>
           </div>
           <div class="benefit">
             <h3>Свободный разворот</h3>
-            <p>Большая площадка позволяет спокойно заехать и выехать любому транспорту, включая длинномеры.</p>
+            <p>Большая площадка позволяет спокойно заехать и выехать любому транспорту, включая фуры.</p>
           </div>
           <div class="benefit">
-            <h3>Любой объем от 5 досок</h3>
-            <p>Не нужно искать, где докупить пару досок на доделку - отгрузим хоть 5 штук, хоть полную машину.</p>
+            <h3>Объем от 5 досок</h3>
+            <p>Не нужно искать, где докупить пару досок на доделку - отгрузим хоть 5 штук, хоть машину.</p>
           </div>
         </div>
       </div>
@@ -804,7 +996,7 @@
           </div>
           <div class="photo-card" onclick="openLightbox('photo2.jpg')">
             <img src="photo2.jpg" alt="Склад пиломатериалов на площадке" loading="lazy" />
-            <div class="photo-caption">Большой запас готового пиломатериала на базе</div>
+            <div class="photo-caption">Большой запас пиломатериала на базе</div>
           </div>
           <div class="photo-card" onclick="openLightbox('photo3.jpg')">
             <img src="photo3.jpg" alt="Запас соснового пиловочника" loading="lazy" />
@@ -812,7 +1004,7 @@
           </div>
           <div class="photo-card" onclick="openLightbox('photo4.jpg')">
             <img src="photo4.jpg" alt="Свежий сосновый лес" loading="lazy" />
-            <div class="photo-caption">Свежий лес - пилим под стандарт и в ваш размер</div>
+            <div class="photo-caption">Свежий лес - пилим под стандарт и в размер</div>
           </div>
           <div class="photo-card" onclick="openLightbox('photo5.jpg')">
             <img src="photo5.jpg" alt="Чистая геометрия доски" loading="lazy" />
@@ -820,7 +1012,7 @@
           </div>
           <div class="photo-card" onclick="openLightbox('photo6.jpg')">
             <img src="photo6.jpg" alt="Готовая обрезная доска на площадке" loading="lazy" />
-            <div class="photo-caption">Готовая обрезная доска в наличии на складе</div>
+            <div class="photo-caption">Готовая обрезная доска на складе</div>
           </div>
         </div>
       </div>
@@ -832,7 +1024,7 @@
       <div class="section-panel contacts-wrap">
         <div>
           <span class="sec-tag">Контакты и схема проезда</span>
-          <h2 style="font-size: 30px; font-weight: 800; margin-bottom: 10px;">Как нас найти и сделать заказ</h2>
+          <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 10px;">Как нас найти и сделать заказ</h2>
           <p style="color: var(--ink-secondary); font-size: 15px;">
             Позвоните или напишите - подскажем актуальную цену, наличие нужного сечения и рассчитаем доставку Газелью.
           </p>
@@ -865,7 +1057,7 @@
           </iframe>
           <div class="map-footer">
             <span>Коммунистическая ул., 47, д. Красниково</span>
-            <a href="https://yandex.ru/maps/?rtext=~52.879482,40.435849" target="_blank">Построить маршрут в Яндекс Картах →</a>
+            <a href="https://yandex.ru/maps/?rtext=~52.879482,40.435849" target="_blank">Маршрут в Яндекс Картах →</a>
           </div>
         </div>
       </div>
@@ -884,6 +1076,18 @@
   </div>
 
   <script>
+    function filterSizes(cat, btn) {
+      document.querySelectorAll('#sizeTabs .m-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.sizes-grid .size-card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.classList.remove('hidden-mobile');
+        } else {
+          card.classList.add('hidden-mobile');
+        }
+      });
+    }
+
     function openLightbox(src) {
       document.getElementById("lightboxImg").src = src;
       document.getElementById("lightbox").classList.add("open");
