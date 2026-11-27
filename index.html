@@ -308,9 +308,8 @@
       letter-spacing: -0.02em;
       margin-bottom: 6px;
     }
-    .sec-header p { color: var(--ink-secondary); font-size: 15px; max-width: 680px; }
+    .sec-header p { color: var(--ink-secondary); font-size: 15px; max-width: 720px; }
 
-    /* Мобильные вкладки для переключения категорий без длинного скролла */
     .mobile-tabs {
       display: none;
       grid-template-columns: repeat(3, 1fr);
@@ -337,7 +336,6 @@
       border-color: var(--bark-dark);
     }
 
-    /* Единая 3-колоночная сетка для ПК */
     .sizes-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -588,7 +586,6 @@
       .benefits-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     }
 
-    /* Мобильный макет: виден фон с бревнами по краям и нет длинной прокрутки */
     @media (max-width: 720px) {
       .container { padding: 0 18px; }
       .nav { height: 58px; }
@@ -638,7 +635,6 @@
       .fact strong { font-size: 12.5px; }
       .fact span { font-size: 10.5px; }
 
-      /* Компактная карточка площадки с 2 колонками преимуществ */
       .hero-aside {
         padding: 14px 12px;
         border-radius: 16px;
@@ -665,7 +661,6 @@
       }
       .check-icon { width: 18px; height: 18px; font-size: 10px; margin-top: 0; }
 
-      /* Вкладки категорий на телефоне: показываем по 1 карточке за раз */
       .sec-header { margin-bottom: 14px; }
       .sec-header p { font-size: 13px; }
       .mobile-tabs { display: grid; }
@@ -699,7 +694,6 @@
       .extra-card h4 { font-size: 13.5px; margin-bottom: 4px; }
       .extra-card p { font-size: 11.5px; line-height: 1.35; }
 
-      /* Условия работы в сетке 2x2 */
       .trust-block {
         border-radius: 22px;
         padding: 18px 14px;
@@ -716,7 +710,6 @@
       .benefit h3 { font-size: 13.5px; margin-bottom: 4px; }
       .benefit p { font-size: 11.5px; line-height: 1.35; }
 
-      /* Галерея фото в компактной сетке 2x3 */
       .photos-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
@@ -778,7 +771,7 @@
           </div>
           <h1>Пиломатериалы из сосны <span>от 5 досок до фуры</span></h1>
           <p class="hero-desc">
-            Обрезная и необрезная доска, строительный брус и брусок стандартной длины 6 метров, горбыль и опилки.
+            Обрезная и необрезная доска, строительный брус и брусок стандартной длины 6 метров и нестандартных размеров до 7,2 м, горбыль и опилки.
             Погрузим манипулятором на базе или привезем своей Газелью по Тамбовской области.
           </p>
 
@@ -793,8 +786,8 @@
               <span>Розница и опт</span>
             </div>
             <div class="fact">
-              <strong>Длина 6 м</strong>
-              <span>Все сечения</span>
+              <strong>Длина до 7,2 м</strong>
+              <span>Стандарт 6 м и спецзаказ</span>
             </div>
             <div class="fact">
               <strong>Своя Газель</strong>
@@ -827,12 +820,11 @@
     <div class="container">
       <div class="section-panel">
         <div class="sec-header">
-          <span class="sec-tag">Стандартные размеры - Длина 6 м</span>
+          <span class="sec-tag">Стандарт 6 м и нестандарт до 7,2 м</span>
           <h2>Ассортимент и сечения пиломатериала</h2>
-          <p>Актуальную стоимость за куб и за штуку уточняйте по телефону или в мессенджерах - подскажем остатки на складе под ваш объем</p>
+          <p>В наличии стандартная длина 6 метров, а также пилим нестандартные размеры под заказ длиной до 7,2 м. Актуальную стоимость за куб и за штуку уточняйте по телефону или в мессенджерах</p>
         </div>
 
-        <!-- 3 вкладки во всю ширину экрана телефона -->
         <div class="mobile-tabs" id="sizeTabs">
           <button class="m-tab active" onclick="filterSizes('thin', this)">Тонкая доска</button>
           <button class="m-tab" onclick="filterSizes('thick', this)">Толстая доска</button>
@@ -841,7 +833,7 @@
 
         <div class="sizes-grid">
           <div class="size-card" data-cat="thin">
-            <span class="tag-chip">Длина 6 м</span>
+            <span class="tag-chip">Стандарт 6 м (до 7,2 м)</span>
             <h3>Доска обрезная тонкая (20-25 мм)</h3>
             <ul class="size-list">
               <li>
@@ -869,7 +861,7 @@
           </div>
 
           <div class="size-card hidden-mobile" data-cat="thick">
-            <span class="tag-chip">Длина 6 м</span>
+            <span class="tag-chip">Стандарт 6 м (до 7,2 м)</span>
             <h3>Доска обрезная толстая (40-50 мм)</h3>
             <ul class="size-list">
               <li>
@@ -911,7 +903,7 @@
           </div>
 
           <div class="size-card hidden-mobile" data-cat="timber">
-            <span class="tag-chip">Длина 6 м</span>
+            <span class="tag-chip">Стандарт 6 м (до 7,2 м)</span>
             <h3>Брус и брусок строительный</h3>
             <ul class="size-list">
               <li>
@@ -987,8 +979,8 @@
             <p>Большая площадка позволяет спокойно заехать и выехать любому транспорту, включая фуры.</p>
           </div>
           <div class="benefit">
-            <h3>Объем от 5 досок</h3>
-            <p>Не нужно искать, где докупить пару досок на доделку - отгрузим хоть 5 штук, хоть машину.</p>
+            <h3>Нестандарт до 7,2 м</h3>
+            <p>Отгрузим от 5 досок до фуры и напилим нестандартную длину до 7,2 метра под ваш проект.</p>
           </div>
         </div>
       </div>
@@ -1013,16 +1005,16 @@
             <img src="photo2.jpg" alt="Склад пиломатериалов на площадке" loading="lazy" />
             <div class="photo-caption">Большой запас пиломатериала на базе</div>
           </div>
-          <div class="photo-card" onclick="openLightbox('photo3.jpg')">
-            <img src="photo3.jpg" alt="Запас соснового пиловочника" loading="lazy" />
+          <div class="photo-card" onclick="openLightbox('photo5.jpg')">
+            <img src="photo5.jpg" alt="Отборный сосновый кругляк под распил" loading="lazy" />
             <div class="photo-caption">Отборный сосновый кругляк под распил</div>
           </div>
           <div class="photo-card" onclick="openLightbox('photo4.jpg')">
             <img src="photo4.jpg" alt="Свежий сосновый лес" loading="lazy" />
             <div class="photo-caption">Свежий лес - пилим под стандарт и в размер</div>
           </div>
-          <div class="photo-card" onclick="openLightbox('photo5.jpg')">
-            <img src="photo5.jpg" alt="Чистая геометрия доски" loading="lazy" />
+          <div class="photo-card" onclick="openLightbox('photo3.jpg')">
+            <img src="photo3.jpg" alt="Чистая геометрия доски" loading="lazy" />
             <div class="photo-caption">Чистая геометрия доски</div>
           </div>
           <div class="photo-card" onclick="openLightbox('photo6.jpg')">
@@ -1058,7 +1050,7 @@
 
           <div class="msg-buttons">
             <a href="tel:+79027301111" class="msg-btn accent">Позвонить</a>
-            <a href="https://wa.me/79027301111" target="_blank" class="msg-btn">WhatsApp</a>
+            <a href="https://max.ru/+79027301111" target="_blank" class="msg-btn">MAX</a>
             <a href="https://t.me/+79027301111" target="_blank" class="msg-btn">Telegram</a>
             <a href="https://yandex.ru/maps/-/CXgmEE--" target="_blank" class="msg-btn">Яндекс Карты ↗</a>
           </div>
